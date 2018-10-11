@@ -2,21 +2,21 @@
 
 namespace Matok\Bundle\MusicBundle\Controller;
 
-use Matok\Bundle\MusicBundle\Form\Type\ArtistType;
+use Matok\Bundle\MusicBundle\Form\Type\AlbumType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArtistController extends Controller
+class AlbumController extends Controller
 {
     public function listAction(Request $request): Response
     {
-        return $this->render('@Music/artist/list.html.twig');
+        return $this->render('@Music/album/list.html.twig');
     }
 
     public function addAction(Request $request): Response
     {
-        $form = $this->createForm(ArtistType::class);
+        $form = $this->createForm(AlbumType::class);
 
         $form->handleRequest($request);
 
@@ -25,18 +25,8 @@ class ArtistController extends Controller
             dump($artist);
         }
 
-        return $this->render('@Music/artist/add.html.twig', [
+        return $this->render('@Music/album/add.html.twig', [
             'form' => $form->createView()
         ]);
-    }
-
-    public function editAction(Request $request): Response
-    {
-        return $this->render('@Music/artist/edit.html.twig');
-    }
-
-    public function deleteAction(Request $request): Response
-    {
-        return $this->render('@Music/artist/delete.html.twig');
     }
 }

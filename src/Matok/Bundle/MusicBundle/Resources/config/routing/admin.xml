@@ -4,7 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="matok_artist" path="/artists">
+    <!-- artists -->
+    <route id="matok_artist_list" path="/artist">
         <default key="_controller">MusicBundle:Artist:list</default>
     </route>
 
@@ -12,7 +13,17 @@
         <default key="_controller">MusicBundle:Artist:add</default>
     </route>
 
-    <route id="matok_artist_remove" path="/artist/remove">
+    <route id="matok_artist_remove" path="/artist/{id}/remove">
         <default key="_controller">MusicBundle:Artist:remove</default>
     </route>
+
+    <!-- albums -->
+    <route id="matok_album_list" path="/album">
+        <default key="_controller">MusicBundle:Album:list</default>
+    </route>
+
+    <route id="matok_album_add" path="/album/add">
+        <default key="_controller">MusicBundle:Album:add</default>
+    </route>
+
 </routes>
