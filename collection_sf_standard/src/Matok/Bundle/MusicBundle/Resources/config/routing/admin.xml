@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="matok_artist" path="/artists">
+        <default key="_controller">MusicBundle:Artist:list</default>
+    </route>
+
+    <route id="matok_artist_add" path="/artist/add">
+        <default key="_controller">MusicBundle:Artist:add</default>
+    </route>
+
+    <route id="matok_artist_remove" path="/artist/remove">
+        <default key="_controller">MusicBundle:Artist:remove</default>
+    </route>
+</routes>

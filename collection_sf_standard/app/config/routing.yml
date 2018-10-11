@@ -1,0 +1,3 @@
+blog:
+    resource: "@MusicBundle/Resources/config/routing/routing.xml"
+    prefix:   /
