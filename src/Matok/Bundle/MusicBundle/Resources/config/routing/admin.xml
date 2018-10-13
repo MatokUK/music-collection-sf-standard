@@ -13,6 +13,10 @@
         <default key="_controller">MusicBundle:Artist:add</default>
     </route>
 
+    <route id="matok_artist_edit" path="/artist/{id}/edit">
+        <default key="_controller">MusicBundle:Artist:edit</default>
+    </route>
+
     <route id="matok_artist_remove" path="/artist/{id}/remove">
         <default key="_controller">MusicBundle:Artist:remove</default>
     </route>
@@ -26,4 +30,11 @@
         <default key="_controller">MusicBundle:Album:add</default>
     </route>
 
+    <route id="matok_album_edit" path="/album/{id}/edit">
+        <default key="_controller">MusicBundle:Album:edit</default>
+    </route>
+
+    <route id="matok_album_remove" path="/album/{id}/remove">
+        <default key="_controller">MusicBundle:Album:remove</default>
+    </route>
 </routes>

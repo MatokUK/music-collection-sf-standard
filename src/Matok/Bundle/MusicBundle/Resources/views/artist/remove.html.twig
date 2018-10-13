@@ -1,0 +1,15 @@
+{% extends '@Music/base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><h1>Do you really want to remove artist "{{ artist.title }}"?</h1></div>
+        <div class="panel-body">
+            {{ form_start(delete_form) }}
+
+            {{ form_widget(delete_form.delete) }}
+            {{ form_widget(delete_form.cancel) }}
+
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+{% endblock %}

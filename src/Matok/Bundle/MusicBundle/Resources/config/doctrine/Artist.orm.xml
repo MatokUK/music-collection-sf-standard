@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity table="album" name="Matok\Bundle\MusicBundle\Entity\Album" repository-class="Matok\Bundle\MusicBundle\Repository\AlbumRepository">
-        <id name="albumId" type="integer" column="album_id">
+    <entity table="artist" name="Matok\Bundle\MusicBundle\Entity\Artist" repository-class="Matok\Bundle\MusicBundle\Repository\ArtistRepository">
+        <id name="artistId" type="integer" column="artist_id">
             <generator strategy="IDENTITY"/>
         </id>
 
-        <field name="title" type="string" length="128" column="title"  nullable="false"/>
-        <field name="genre" type="string" length="64" column="genre"  nullable="false"/>
+        <field name="title" type="string" column="title" length="128" nullable="false"/>
+        <field name="webPage" type="string" column="web_page" length="512" nullable="true"/>
+        <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
       <!--  <field name="afterTransactionBalance" type="integer" column="after_transaction_balance"  nullable="false"/>
         <field name="createdAt" type="datetime" column="created_at"  nullable="false"/>
 -->

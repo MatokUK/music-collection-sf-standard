@@ -1,38 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends '@Music/base.html.twig' %}
 
 {% block body %}
-    <h1>List of Artists</h1>
+    {% set show_table = artists[0] is defined %}
 
-    [ <a href="{{ url('matok_artist_add') }}">Add Artist</a> | <a href="{{ url('matok_album_add') }}">Add Album</a> ]
+    {% if show_table %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><h1>List of Artists</h1></div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Wep Page</th>
+                <th>Albums</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+    {% endif %}
+            {% for artist in artists %}
+                <tr>
+                    <td>{{ artist.title }}</td>
+                    <td>{{ artist.webpage }}</td>
+                    <th>{{ artist.albums|length }}</th>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{{ url('matok_artist_edit', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+                            <a href="{{ url('matok_artist_remove', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                Sorry, nothing here, but you can <a href="{{ url('matok_artist_add') }}">add a new artist</a>.
+            {% endfor %}
+        {% if show_table %}
+        </table>
+        {% endif %}
+    </div>
 
-    [ <a href="{{ url('matok_album_list') }}">List of Albums</a> ]
-{% endblock %}
-
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
-
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
-
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
+    <a href="{{ url('matok_album_list') }}" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> List of Albums
+    </a>
 {% endblock %}

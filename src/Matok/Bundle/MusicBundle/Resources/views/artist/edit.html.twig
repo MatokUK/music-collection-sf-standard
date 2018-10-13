@@ -1,0 +1,12 @@
+{% extends '@Music/base.html.twig' %}
+
+{% block body %}
+    <h1>Edit {{ artist.title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.webpage) }}
+        <input type="submit" value="Save Changes" class="btn btn-success"> ...or
+    <a href="{{ url('matok_artist_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Back to list</a>
+    {{ form_end(form) }}
+{% endblock %}

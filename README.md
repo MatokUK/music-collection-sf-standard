@@ -1,15 +1,39 @@
 # Music Collection - Simple Application by Symfony Standard Edition
 
-Application is based on https://github.com/symfony/symfony-standard.
+Application is based on https://github.com/symfony/symfony-standard
+Design: http://getbootstrap.com/docs/3.3/getting-started/
 
 # Installation & Requirements
-* php 7
+* php 7.1 or higher
 * composer
 * mysql
+* web browser (tested only on chrome latest version)
 
+```bash
 git clone
-
+cd music-collection-sf-standard
 composer install
+php bin/console server:run
+```
+# Tests
+
+
+## Functional tests
+
+ - tests that some pages return 404 https status code (edit non-existing artist)
+
+```bash
+./vendor/phpunit/phpunit/phpunit
+```
+
+# Acceptance tests
+If you want to run acceptance tests you have 
+ - tested whole CRUD cycle on Albums
+ - tested whole CRUD cycle on Artists
+
+```bash
+./vendor/codeception/codeception/codecept run 
+```
 
 # Original Task
 
