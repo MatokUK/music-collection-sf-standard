@@ -1,0 +1,15 @@
+<script>
+    jQuery(document).ready(function() {
+
+        jQuery('#js-add-artist-album').on('click', function(e) {
+            var proto = jQuery('#artist_albums').data('prototype');
+            var len =  jQuery('#artist_albums').find('fieldset').length;
+            var newTtem = proto.replace(/__name__/g, len);
+            console.log(newTtem);
+
+            jQuery('#artist_albums').append(newTtem);
+        });
+
+
+    });
+</script>

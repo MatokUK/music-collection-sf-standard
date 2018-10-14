@@ -7,8 +7,16 @@
         {{ form_row(form.title) }}
         {{ form_row(form.webpage) }}
         {{ form_row(form.albums) }}
+        <a href="#" id="js-add-artist-album" class="btn btn-warning">Add Album</a>
+
+    <br><br>
+
+
+
         <input type="submit" value="Add artist" class="btn btn-success"> ...or
         <a href="{{ url('matok_artist_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Back to list</a>
     {{ form_end(form) }}
 
+
+    {% include '@Music/artist/collection_script.html.twig' %}
 {% endblock %}

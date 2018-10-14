@@ -30,15 +30,14 @@ class AlbumCest
     /**
      * @before login
      */
-    public function testAdd(\AcceptanceTester $I)
+    public function testAdd(\AcceptanceTester $I, MusicProvider $dataProvider = null)
     {
-        $I->wantTo('Test that page for add artist display form');
+        $I->wantTo('Test store new album');
 
         $I->amOnPage('/admin/album');
         $I->click('Add Album');
 
         if (!$this->testingDelete) {
-            $dataProvider = new MusicProvider();
             $album = $dataProvider->getAlbumData();
         } else {
             $album = ['a a a', 'aaaa', 2000]; // I want to have this as first
