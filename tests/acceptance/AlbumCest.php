@@ -8,6 +8,17 @@ class AlbumCest
 {
     private $testingDelete = false;
 
+    protected function login(\AcceptanceTester $I)
+    {
+        $I->amOnPage('/');
+        $I->fillField('_username', 'admin');
+        $I->fillField('_password', 'admin');
+        $I->click("//button[@type='submit']");
+    }
+
+    /**
+     * @before login
+     */
     public function testList(\AcceptanceTester $I)
     {
         $I->wantTo('Test that list albums is displayed correctly');
@@ -16,6 +27,9 @@ class AlbumCest
         $I->see('List of Albums', 'h1');
     }
 
+    /**
+     * @before login
+     */
     public function testAdd(\AcceptanceTester $I)
     {
         $I->wantTo('Test that page for add artist display form');
@@ -31,7 +45,6 @@ class AlbumCest
         }
 
         $I->fillField('album[title]', $album[0]);
-       // $I->wait(40);
         $I->fillField('album[genre]', $album[1]);
         $I->fillField('album[year]', $album[2]);
         $I->click('//input[@type="submit"]');
@@ -39,6 +52,9 @@ class AlbumCest
         $I->see('New album was created', '.alert-success');
     }
 
+    /**
+     * @before login
+     */
     public function testDelete(\AcceptanceTester $I)
     {
         $I->wantTo('Test delete of previously artist is working');
