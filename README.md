@@ -1,6 +1,6 @@
 # Music Collection - Simple Application by Symfony Standard Edition
 
-Application is based on https://github.com/symfony/symfony-standard
+Based on https://github.com/symfony/symfony-standard
 
 Design: http://getbootstrap.com/docs/3.3/getting-started/
 
@@ -9,15 +9,17 @@ If you are wondering if I will make similar task in real life like this... **nev
 https://sonata-project.org/ (or any similar framework for CRUD operations), but than it will be boring and you will 
 know nothing about my programming skills cos this task can be completed without writing of single line of code.
 
-## What is used to music collection
+## What is used in Music collection
  * Doctrine ORM framework
     * no MySQL injection
     * used ArrayCollection to handle many albums in one form
     * pagination (to save resources)
  * Twig
     * no XSS (no raw output)
- * Symfony forms
+ * Symfony Forms
     * all actions (that possibly alter data) are available only via form (CSFR guarded)
+ * Symfony Security
+    * standard Symfony component for login/logout - this is not tuned up, so I guarantee nothing (not important in this app... I guess) 
  * Added some extra fields for more fun
  * **Clean Code** & **Test Driven Development**
 
@@ -57,16 +59,26 @@ Open provided link and have fun with application.
 
 
 # Tests
-## Functional tests
+As always my code highly covered with different types of tests.
 
- - tests that some pages return 404 https status code (edit non-existing artist)
+## Unit tests
+ - only pagination - there is no space to test something else with Unit Testing
 
 ```bash
 ./vendor/phpunit/phpunit/phpunit
 ```
 
-# Acceptance tests
-If you want to run acceptance tests you have 
+## Functional tests
+ - tests that some pages return 404 https status code (edit non-existing artist)
+ - yeah, I know these test are not working after I added login page... sorry :)
+
+```bash
+./vendor/phpunit/phpunit/phpunit
+```
+
+## Acceptance tests
+If you want to run acceptance tests you have
+ - tested Login / Invalid credentials Login
  - tested whole CRUD cycle on Albums
  - tested whole CRUD cycle on Artists
 
