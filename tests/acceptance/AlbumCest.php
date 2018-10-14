@@ -1,7 +1,14 @@
 <?php
+
+namespace AcceptanceTests;
+
+use AcceptanceTests\DataProvider\MusicProvider;
+
 class AlbumCest
 {
-    public function testList(AcceptanceTester $I)
+    private $testingDelete = false;
+
+    public function testList(\AcceptanceTester $I)
     {
         $I->wantTo('Test that list albums is displayed correctly');
 
@@ -9,46 +16,41 @@ class AlbumCest
         $I->see('List of Albums', 'h1');
     }
 
-   public function testAdd(AcceptanceTester $I)
+    public function testAdd(\AcceptanceTester $I)
     {
         $I->wantTo('Test that page for add artist display form');
 
         $I->amOnPage('/admin/album');
         $I->click('Add Album');
 
-        $album = $this->getAlbumData();
+        if (!$this->testingDelete) {
+            $dataProvider = new MusicProvider();
+            $album = $dataProvider->getAlbumData();
+        } else {
+            $album = ['a a a', 'aaaa', 2000]; // I want to have this as first
+        }
 
         $I->fillField('album[title]', $album[0]);
+       // $I->wait(40);
         $I->fillField('album[genre]', $album[1]);
         $I->fillField('album[year]', $album[2]);
         $I->click('//input[@type="submit"]');
         $I->see('List of Albums', 'h1');
+        $I->see('New album was created', '.alert-success');
     }
 
-    /*public function testDelete(AcceptanceTester $I)
+    public function testDelete(\AcceptanceTester $I)
     {
         $I->wantTo('Test delete of previously artist is working');
+        $this->testingDelete = true;
+        $this->testAdd($I);
 
-        $I->amOnPage('/admin/artist/add');
-        $I->see('Add Artist');
-    }*/
-
-    private function getAlbumData()
-    {
-        $albums = [
-            ['Queen', 'rock', 1973],
-            ['Queen II', 'rock', 1973],
-            ['A Night at the Opera', 'rock', 1975],
-            ['Under The Blade', 'rock', 1982],
-            ['Stay Hungry', 'rock', 1984],
-            ['A Twisted Christmas', 'rock', 2006],
-            ['A Girl Like Me', 'pop', 2006],
-            ['Good Girl Gone Bad', 'pop', 2006],
-            ['Rated R', 'pop', 2009],
-            ['Teenage Dream', 'pop', 2010],
-            ['Prism', 'pop', 2013],
-        ];
-
-        return $albums[rand(0, count($albums)-1)];
+        $I->amOnPage('/admin/album');
+        $I->click('//table//div[@class="btn-group"][1]//a[normalize-space(text())="Delete"]');
+        $I->see('Do you really want to remove album');
+        $I->see('Yes', 'button');
+        $I->see('to listing', 'button');
+        $I->click("//button[contains(@class, 'btn-danger')]");
+        $I->see('was deleted');
     }
 }

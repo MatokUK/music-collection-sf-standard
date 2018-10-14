@@ -1,4 +1,6 @@
 <?php
+namespace AcceptanceTests;
+
 class ArtistCest
 {
     public function testList(AcceptanceTester $I)

@@ -3,9 +3,10 @@
 {% block body %}
     {% set show_table = albums[0] is defined %}
 
-    {% if show_table %}
-        <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading"><h1>List of Albums</h1></div>
+
+    {% if show_table %}
         <table class="table">
         <thead>
             <tr>

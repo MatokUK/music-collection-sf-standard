@@ -4,8 +4,14 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        our_db_provider:
+            entity:
+                class: Matok\Bundle\MusicBundle\Entity\User
+                property: username
+
+    encoders:
+        Matok\Bundle\MusicBundle\Entity\User:
+            algorithm: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +21,14 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
+            provider: our_db_provider
+            form_login:
+                login_path: matok_homepage_login
+                check_path: matok_homepage_login
+                default_target_path: matok_artist_list
+            logout:
+                path:   /logout
+                target: /
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }
