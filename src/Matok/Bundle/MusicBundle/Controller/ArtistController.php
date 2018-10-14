@@ -57,8 +57,6 @@ class ArtistController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $artist = $form->getData();
-            dump($artist);
-            //exit;
             $artistRepository->save($artist);
 
             $this->addFlash('success', sprintf('Changes on artist "%s" were saved!', $artist->getTitle()));
