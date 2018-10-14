@@ -6,10 +6,19 @@ use Matok\Bundle\MusicBundle\Entity\Artist;
 
 class ArtistRepository extends EntityRepository implements \Countable
 {
+    public function getList(int $limit, int $offset)
+    {
+        return $this->findBy([], ['title' => 'ASC'], $limit, $offset);
+    }
+
     public function save(Artist $artist)
     {
         $this->getEntityManager()->persist($artist);
-        $this->getEntityManager()->flush($artist);
+        foreach ($artist->getAlbums() as $album) {
+            $this->getEntityManager()->persist($album);
+        }
+
+        $this->getEntityManager()->flush();
     }
 
     public function remove(int $id)
@@ -22,7 +31,7 @@ class ArtistRepository extends EntityRepository implements \Countable
 
     public function count(): int
     {
-        $query = $this->getEntityManager()->createQuery('SELECT COUNT(a.albumId) FROM '.$this->getEntityName().' a');
+        $query = $this->getEntityManager()->createQuery('SELECT COUNT(a.artistId) FROM '.$this->getEntityName().' a');
 
         return $query->getSingleScalarResult();
     }

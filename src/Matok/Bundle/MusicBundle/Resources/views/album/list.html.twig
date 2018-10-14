@@ -9,6 +9,7 @@
         <table class="table">
         <thead>
             <tr>
+                <th>Artist</th>
                 <th>Album</th>
                 <th>Year</th>
                 <th>Genre</th>
@@ -19,6 +20,7 @@
 
     {% for album in albums %}
         <tr>
+            <td>{{ album.artist }}</td>
             <td>{{ album.title }}</td>
             <td>{{ album.year }}</td>
             <td>{{ album.genre }}</td>
@@ -33,7 +35,11 @@
         Sorry, nothing here, but you can <a href="{{ url('matok_album_add') }}">add a new album</a>.
     {% endfor %}
 
-    {% if show_table %}</table>{% endif %}
+    {% if show_table %}
+        </table>
+        {% import '@Music/macro/paginator.html.twig' as m_paginator %}
+        {{ m_paginator.render('matok_album_list', paginator) }}
+    {% endif %}
     </div>
 
     <a href="{{ url('matok_artist_list') }}" class="btn btn-primary btn-lg">

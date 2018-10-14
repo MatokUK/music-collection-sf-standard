@@ -64,6 +64,7 @@ class Artist
 
     public function addAlbum(Album $album): Artist
     {
+        $album->setArtist($this);
         $this->albums->add($album);
 
         return $this;
@@ -86,5 +87,10 @@ class Artist
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->title;
     }
 }

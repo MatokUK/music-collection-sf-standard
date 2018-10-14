@@ -1,0 +1,27 @@
+{% macro render(base_url, p) %}
+    {% if p.pages > 1 %}
+    <ul class="pagination">
+        {{ _self._prev(base_url, p.page) }}
+        {{ _self._pages(base_url, p.page, p.pages) }}
+        {{ _self._next(base_url, p.page, p.pages) }}
+    </ul>
+    {% endif %}
+{% endmacro %}
+
+{% macro _prev(base_url, current_page) %}
+    <li class="page-item{% if current_page == 1%} disabled{% endif %}">
+        <a class="page-link" {% if current_page > 1%}href="{{ url(base_url, {'page': (current_page-1)}) }}"{% endif %} tabindex="-1">Previous</a>
+    </li>
+{% endmacro %}
+
+{% macro _next(base_url, current_page, max_page) %}
+    <li class="page-item{% if current_page == max_page %} disabled{% endif %}">
+        <a class="page-link"{% if current_page < max_page %} href="{{ url(base_url, {'page': current_page + 1}) }}"{% endif %}>Next</a>
+    </li>
+{% endmacro %}
+
+{% macro _pages(base_url, current_page, max_page) %}
+    {% for i in 1..max_page %}
+        <li class="page-item{% if i == current_page %} active{% endif %}"><a class="page-link" href="{{ url(base_url, {'page': i}) }}">{{ i }}</a></li>
+    {% endfor %}
+{% endmacro %}

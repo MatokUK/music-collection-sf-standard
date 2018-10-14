@@ -3,14 +3,15 @@
 {% block body %}
     <h1>Add new Album</h1>
 
+
     {{ form_start(form) }}
-        {{ form_widget(form.title) }}
-        {{ form_widget(form.genre) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.artist) }}
+        {{ form_row(form.genre) }}
+        {{ form_row(form.year) }}
 
-
-        <input type="submit">
+        <input type="submit" value="Add album" class="btn btn-success"> ...or
+        <a href="{{ url('matok_album_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Back to list</a>
     {{ form_end(form) }}
-
-    [ <a href="{{ url('matok_album_list') }}">back to list</a>]
 {% endblock %}
 

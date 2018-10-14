@@ -4,6 +4,7 @@ namespace Matok\Bundle\MusicBundle\Controller;
 
 use Matok\Bundle\MusicBundle\Form\Type\AlbumType;
 use Matok\Bundle\MusicBundle\Form\Type\DeleteEntryType;
+use Matok\Bundle\MusicBundle\Paginator\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AlbumController extends Controller
 {
+    const ITEMS_PER_PAGE = 10;
+
     public function listAction(Request $request): Response
     {
-        $albums = $this->getDoctrine()->getRepository(Album::class)->getList();
-        dump($this->getDoctrine()->getRepository(Album::class)->count());
+        $albumRepository = $this->getDoctrine()->getRepository(Album::class);
+        $paginator = new Paginator($albumRepository->count(), self::ITEMS_PER_PAGE);
+        $paginator->setPage($request->query->getInt('page'));
+        $albums = $albumRepository->getList($paginator->getLimit(), $paginator->getOffset());
 
         return $this->render('@Music/album/list.html.twig', [
-            'albums' => $albums
+            'albums' => $albums,
+            'paginator' => $paginator,
         ]);
     }
 
@@ -31,6 +37,9 @@ class AlbumController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $albumRepository = $this->getDoctrine()->getRepository(Album::class);
             $albumRepository->save($form->getData());
+
+            $this->addFlash('success', sprintf('New album was created!'));
+
             return $this->redirectToRoute('matok_album_list');
         }
 
@@ -51,6 +60,9 @@ class AlbumController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $albumRepository->save($form->getData());
+
+            $this->addFlash('success', sprintf('Changes on album were saved!'));
+
             return $this->redirectToRoute('matok_album_list');
         }
 

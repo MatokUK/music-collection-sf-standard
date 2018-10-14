@@ -6,9 +6,9 @@ use Matok\Bundle\MusicBundle\Entity\Album;
 
 class AlbumRepository extends EntityRepository implements \Countable
 {
-    public function getList()
+    public function getList(int $limit, int $offset)
     {
-       return $this->findBy([], ['title' => 'ASC']);
+       return $this->findBy([], ['title' => 'ASC'], $limit, $offset);
     }
 
     public function save(Album $album)

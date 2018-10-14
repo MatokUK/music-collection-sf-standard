@@ -15,7 +15,8 @@ class AlbumType extends AbstractType
         $builder
             ->add('title', null, ['attr' => ['placeholder' => 'Don\'t Stop Me Now']])
             ->add('genre')
-            ->add('year', IntegerType::class);
+            ->add('year', IntegerType::class, ['required' => false])
+            ->add('artist');
     }
 
     public function configureOptions(OptionsResolver $resolver)

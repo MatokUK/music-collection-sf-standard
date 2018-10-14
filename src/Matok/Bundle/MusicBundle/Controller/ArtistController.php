@@ -5,6 +5,7 @@ namespace Matok\Bundle\MusicBundle\Controller;
 use Matok\Bundle\MusicBundle\Entity\Artist;
 use Matok\Bundle\MusicBundle\Form\Type\ArtistType;
 use Matok\Bundle\MusicBundle\Form\Type\DeleteEntryType;
+use Matok\Bundle\MusicBundle\Paginator\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,12 +13,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArtistController extends Controller
 {
+    const ITEMS_PER_PAGE = 10;
+
     public function listAction(Request $request): Response
     {
-        $artists = $this->getDoctrine()->getRepository(Artist::class)->findAll();
+        $artistRepository = $this->getDoctrine()->getRepository(Artist::class);
+        $paginator = new Paginator($artistRepository->count(), self::ITEMS_PER_PAGE);
+        $paginator->setPage($request->query->getInt('page'));
+        $artists = $artistRepository->getList($paginator->getLimit(), $paginator->getOffset());
 
         return $this->render('@Music/artist/list.html.twig', [
-            'artists' => $artists
+            'artists' => $artists,
+            'paginator' => $paginator,
         ]);
     }
 
@@ -29,6 +36,7 @@ class ArtistController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $artist = $form->getData();
             $this->getDoctrine()->getRepository(Artist::class)->save($artist);
+            $this->addFlash('success', sprintf('New artist was created!'));
 
             return $this->redirectToRoute('matok_artist_list');
         }
@@ -49,7 +57,11 @@ class ArtistController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $artist = $form->getData();
+            dump($artist);
+            //exit;
             $artistRepository->save($artist);
+
+            $this->addFlash('success', sprintf('Changes on artist "%s" were saved!', $artist->getTitle()));
 
             return $this->redirectToRoute('matok_artist_list');
         }

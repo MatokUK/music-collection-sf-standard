@@ -3,9 +3,19 @@
 {% block body %}
     <h1>Edit {{ artist.title }}</h1>
 
+
+    {% form_theme form _self %}
+
+    {% block _artist_albums_widget %}
+        {{ dump(form) }}
+
+        {{ form_row(form.albums) }}
+    {% endblock %}
+
     {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.webpage) }}
+        {{ form_row(form.albums) }}
         <input type="submit" value="Save Changes" class="btn btn-success"> ...or
     <a href="{{ url('matok_artist_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Back to list</a>
     {{ form_end(form) }}

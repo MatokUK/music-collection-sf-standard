@@ -24,12 +24,12 @@ class Album
         return $this->albumId;
     }
 
-    public function getArtist(): Artist
+    public function getArtist(): ?Artist
     {
         return $this->artist;
     }
 
-    public function setArtist(Artist $artist): Album
+    public function setArtist(?Artist $artist): Album
     {
         $this->artist = $artist;
 
@@ -65,7 +65,7 @@ class Album
         return $this->year;
     }
 
-    public function setYear(int $year): Album
+    public function setYear(?int $year): Album
     {
         $this->year = $year;
 

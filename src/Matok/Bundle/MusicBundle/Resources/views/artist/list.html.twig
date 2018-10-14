@@ -33,6 +33,8 @@
             {% endfor %}
         {% if show_table %}
         </table>
+        {% import '@Music/macro/paginator.html.twig' as m_paginator %}
+        {{ m_paginator.render('matok_artist_list', paginator) }}
         {% endif %}
     </div>
 
