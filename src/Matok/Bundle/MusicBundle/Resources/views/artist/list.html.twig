@@ -3,9 +3,10 @@
 {% block body %}
     {% set show_table = artists[0] is defined %}
 
-    {% if show_table %}
     <div class="panel panel-default">
         <div class="panel-heading"><h1>List of Artists</h1></div>
+
+    {% if show_table %}
         <table class="table">
             <thead>
             <tr>
@@ -16,26 +17,28 @@
             </tr>
             </thead>
     {% endif %}
-            {% for artist in artists %}
-                <tr>
-                    <td>{{ artist.title }}</td>
-                    <td>{{ artist.webpage }}</td>
-                    <th>{{ artist.albums|length }}</th>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <a href="{{ url('matok_artist_edit', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-                            <a href="{{ url('matok_artist_remove', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-                Sorry, nothing here, but you can <a href="{{ url('matok_artist_add') }}">add a new artist</a>.
-            {% endfor %}
-        {% if show_table %}
+
+    {% for artist in artists %}
+        <tr>
+            <td>{{ artist.title }}</td>
+            <td>{{ artist.webpage }}</td>
+            <th>{{ artist.albums|length }}</th>
+            <td>
+                <div class="btn-group" role="group">
+                    <a href="{{ url('matok_artist_edit', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+                    <a href="{{ url('matok_artist_remove', {id: artist.artistid}) }}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        Sorry, nothing here, but you can <a href="{{ url('matok_artist_add') }}">add a new artist</a>.
+    {% endfor %}
+
+    {% if show_table %}
         </table>
         {% import '@Music/macro/paginator.html.twig' as m_paginator %}
         {{ m_paginator.render('matok_artist_list', paginator) }}
-        {% endif %}
+    {% endif %}
     </div>
 
     <a href="{{ url('matok_album_list') }}" class="btn btn-primary btn-lg">
