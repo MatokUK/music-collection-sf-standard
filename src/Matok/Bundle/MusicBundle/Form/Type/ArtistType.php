@@ -17,7 +17,7 @@ class ArtistType extends AbstractType
             ->add('title', null, ['attr' => ['placeholder' => 'Queen']])
             ->add('webpage', UrlType::class, ['required' => false])
             ->add('albums', CollectionType::class, [
-                'entry_type' => AlbumType::class,
+                'entry_type' => AlbumCollectionItemType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'by_reference' => false,
