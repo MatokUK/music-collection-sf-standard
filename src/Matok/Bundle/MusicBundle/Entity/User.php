@@ -2,40 +2,22 @@
 
 namespace Matok\Bundle\MusicBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, \Serializable
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
     private $username;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=254, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
     private $isActive;
 
-    public function __construct()
+    public function __construct($username, $password)
     {
+        $this->username = $username;
+        $this->password = $password;
         $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
@@ -60,7 +42,7 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        return array('ROLE_USER');
     }
 
     public function eraseCredentials()

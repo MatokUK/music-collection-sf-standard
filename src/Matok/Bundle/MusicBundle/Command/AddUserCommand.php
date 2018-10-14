@@ -2,12 +2,12 @@
 
 namespace Matok\Bundle\MusicBundle\Command;
 
+use Matok\Bundle\MusicBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AddUserCommand extends ContainerAwareCommand
 {
@@ -24,13 +24,15 @@ class AddUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
-        $encoder = new BCryptPasswordEncoder(5);
-        echo 'encoding..';
+        $encoder = new BCryptPasswordEncoder(9);
         $encoded = $encoder->encodePassword($password, '');
 
-        dump($username, $password, $encoded);
+        $user = new User($username, $encoded);
+        $em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+        $output->writeln('User was created!');
     }
 }

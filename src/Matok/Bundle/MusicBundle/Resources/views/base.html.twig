@@ -44,6 +44,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ url('matok_artist_add') }}"><span class="glyphicon glyphicon-ice-lolly" aria-hidden="true"></span> Add Artist</a></li>
                         <li><a href="{{ url('matok_album_add') }}"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span> Add Album</a></li>
+                        {% if app.user %}<li><a href="{{ url('matok_logout') }}"><b>{{ app.user.username }}</b>, Logout</a></li>{% endif %}
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

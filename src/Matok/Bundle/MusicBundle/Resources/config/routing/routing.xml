@@ -8,5 +8,7 @@
         <default key="_controller">MusicBundle:Security:login</default>
     </route>
 
+    <route id="matok_logout" path="/logout" />
+
     <import resource="admin.xml" prefix="admin" />
 </routes>
