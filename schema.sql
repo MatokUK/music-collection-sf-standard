@@ -5,7 +5,9 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `artist`;
 DROP TABLE IF EXISTS `album`;
+
 CREATE TABLE `album` (
   `album_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `artist_id` int(11) unsigned DEFAULT NULL,
@@ -14,11 +16,11 @@ CREATE TABLE `album` (
   `year` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`album_id`),
   KEY `artist_id` (`artist_id`),
-  CONSTRAINT `album_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`artist_id`)
+  CONSTRAINT `fk_album_artist_id` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`artist_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `artist`;
+
 CREATE TABLE `artist` (
   `artist_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
