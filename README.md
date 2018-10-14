@@ -1,6 +1,7 @@
 # Music Collection - Simple Application by Symfony Standard Edition
 
 Application is based on https://github.com/symfony/symfony-standard
+
 Design: http://getbootstrap.com/docs/3.3/getting-started/
 
 ### Foreword
@@ -16,7 +17,7 @@ know nothing about my programming skills cos this task can be completed without 
  * Twig
     * no XSS (no raw output)
  * Symfony forms
-    * all actions are available only via form (CSFR guarded)
+    * all actions (that possibly alter data) are available only via form (CSFR guarded)
  * Added some extra fields for more fun
  * **Clean Code** & **Test Driven Development**
 
@@ -26,6 +27,20 @@ know nothing about my programming skills cos this task can be completed without 
 * mysql
 * web browser (tested only on chrome latest version)
 
+## Database
+Before you series of commands you should alter app/parameters.yml or create a new file named  app/parameters_env.yml (in the same directory) and store credentials to database:
+```yml
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: your_db_name
+    database_user: your_db_user
+    database_password: your_db_password_or_tilde_if_empty
+```
+
+Script with database schema and users is located in schema.sql. You can log in as admin/admin, user/user or music/music. There is no difference between users. You can generate your own user with command (I must generated it somehow..)
+
+## Installation
 ```bash
 git clone https://github.com/MatokUK/music-collection-sf-standard.git
 cd music-collection-sf-standard
@@ -38,10 +53,10 @@ You should get output like this:
 [OK] Server listening on http://127.0.0.1:8000 
 ```
 
-Have a fun with application.
+Open provided link and have fun with application.
+
+
 # Tests
-
-
 ## Functional tests
 
  - tests that some pages return 404 https status code (edit non-existing artist)
