@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Add new Artist</h1>
 
+    {{ form_errors(form) }}
     {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.webpage) }}
@@ -10,8 +11,6 @@
         <a href="#" id="js-add-artist-album" class="btn btn-warning">Add Album</a>
 
     <br><br>
-
-
 
         <input type="submit" value="Add artist" class="btn btn-success"> ...or
         <a href="{{ url('matok_artist_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Back to list</a>
