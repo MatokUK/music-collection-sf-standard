@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Matok\Bundle\MusicBundle\Entity\Album">
+        <property name="title">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">20</option>
+                <option name="max">50</option>
+                <option name="minMessage">
+                    Your first name must be at least {{ limit }} characters long
+                </option>
+                <option name="maxMessage">
+                    Your first name cannot be longer than {{ limit }} characters
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>
